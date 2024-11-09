@@ -1,0 +1,140 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5; /* Updated background to light grey */
+}
+
+.container {
+  width: 90%; /* Responsive width */
+  max-width: 400px; /* Max width for better layout */
+  background-color: #fff; /* White background for the container */
+  padding: 30px; /* Increased padding on top for better spacing */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for the container */
+  text-align: center;
+}
+
+/* Title Styles */
+h1 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile {
+  position: relative;
+}
+
+.profile-image {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+p {
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.settings-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.settings-list li {
+  border-top: 1px solid #e0e0e0;
+}
+
+.settings-list li:first-child {
+  border-top: none;
+}
+
+.settings-list a {
+  display: flex; /* Use flexbox to align icon and text */
+  justify-content: space-between; /* Space between text and icon */
+  align-items: center; /* Center items vertically */
+  padding: 15px; /* Standard padding for links */
+  color: #333;
+  text-decoration: none;
+  text-align: left;
+  padding-right: 30px; /* Ensure space for the icon */
+}
+
+.settings-list a:hover {
+  cursor: pointer;
+}
+
+.bottom-menu {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bottom-menu i {
+  font-size: 1.5em;
+  color: #777;
+  transition: color 0.3s;
+}
+
+.bottom-menu span {
+  font-size: 0.8em; /* Adjust font size for labels */
+  color: #333; /* Color for the text labels */
+}
+
+.bottom-menu i:hover {
+  color: #007bff;
+}
+
+.bottom-menu .active {
+  color: #007bff;
+}
+
+/* Add styles for the > icon in settings list */
+.settings-list a i {
+  margin-left: 10px; /* Space between text and icon */
+}

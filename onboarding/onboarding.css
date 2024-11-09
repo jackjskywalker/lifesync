@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 100%;
+    max-width: 390px; /* Adjusted to match aspect ratio */
+    height: 750px; /* Fixed height for the iPhone aspect ratio */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+}
+
+.header-image {
+    width: 100%;
+    height: 65%; /* Adjusted height to fill the top part of the container */
+    object-fit: cover; /* Ensures the image covers the area nicely */
+}
+
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.active {
+    background-color: #3b82f6; /* Blue color for the active dot */
+}
+
+.content {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 1.25em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.get-started-btn {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    font-size: 1em;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.get-started-btn:hover {
+    background-color: #2563eb;
+}

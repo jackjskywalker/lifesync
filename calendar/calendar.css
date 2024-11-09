@@ -1,0 +1,102 @@
+/* Basic styling and reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.progress {
+    width: 50%; /* Adjust this value to change the progress */
+    height: 100%;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+
+/* Title and description */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Calendar buttons */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.calendar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calendar-button img {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.calendar-button:hover {
+    background-color: #e0f2fe; /* Light blue hover effect */
+}
+
+/* Next button */
+.next-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #2563eb;
+}
