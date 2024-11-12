@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Workout Planner</h1>
+    </header>
+
+    <section id="calendar">
+        <!-- Days will be dynamically inserted here -->
+    </section>
+
+    <section id="options">
+        <h2>Select Workout Options</h2>
+        <div>
+            <label for="start-time">Start Time:</label>
+            <input type="time" id="start-time">
+        </div>
+        <div>
+            <label for="end-time">End Time:</label>
+            <input type="time" id="end-time">
+        </div>
+        <div id="day-selection">
+            <p>Select Days for Workout:</p>
+            <div class="day-checkbox">
+                <label><input type="checkbox" value="monday"> Monday</label>
+                <label><input type="checkbox" value="tuesday"> Tuesday</label>
+                <!-- Add checkboxes for other days -->
+            </div>
+        </div>
+        <button onclick="findAvailability()">Find Availability</button>
+    </section>
+
+    <section id="plans">
+        <h2>Workout Plans</h2>
+        <ul>
+            <li>30 minutes for 5 times a week</li>
+            <li>60 minutes for 3 times a week</li>
+            <li>120 minutes for 2 times a week</li>
+        </ul>
+    </section>
+
+    <section id="available-slots">
+        <h2>Available Time Slots</h2>
+        <div id="slot-list"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
