@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.AppTest" time="0.082" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.AppTest" time="0.404" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/test-classes:/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/classes:/Users/jackskywalker/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/jackskywalker/.m2/repository/org/json/json/20210307/json-20210307.jar:"/>
+    <property name="java.class.path" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/test-classes:/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/classes:/Users/jackskywalker/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/jackskywalker/.m2/repository/org/json/json/20210307/json-20210307.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
@@ -12,10 +12,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/23/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/surefire/surefirebooter-20241112165357254_3.jar /Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/surefire 2024-11-12T16-53-57_070-jvmRun1 surefire-20241112165357254_1tmp surefire_0-20241112165357254_2tmp"/>
+    <property name="sun.java.command" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/surefire/surefirebooter-20241115141019390_3.jar /Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/surefire 2024-11-15T14-10-18_400-jvmRun1 surefire-20241115141019390_1tmp surefire_0-20241115141019390_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/test-classes:/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/classes:/Users/jackskywalker/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/jackskywalker/.m2/repository/org/json/json/20210307/json-20210307.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/test-classes:/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/classes:/Users/jackskywalker/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/Users/jackskywalker/.m2/repository/org/json/json/20210307/json-20210307.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/jackskywalker"/>
     <property name="user.language" value="en"/>
@@ -23,13 +23,13 @@
     <property name="java.version.date" value="2024-09-17"/>
     <property name="java.home" value="/usr/local/Cellar/openjdk/23/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp"/>
+    <property name="basedir" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp/target/surefire/surefirebooter-20241112165357254_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp/target/surefire/surefirebooter-20241115141019390_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="23"/>
@@ -45,7 +45,7 @@
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/ns/x5z5_mkn00sgrhybdv5dgn7m0000gn/T/"/>
     <property name="java.version" value="23"/>
-    <property name="user.dir" value="/Users/jackskywalker/Desktop/SWE/WorkoutPlanner copy/myapp"/>
+    <property name="user.dir" value="/Users/jackskywalker/Desktop/LifeSync/WorkoutPlanner 3.0/myapp"/>
     <property name="os.arch" value="x86_64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="native.encoding" value="UTF-8"/>
@@ -58,5 +58,5 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testApp" classname="com.example.AppTest" time="0.006"/>
+  <testcase name="testApp" classname="com.example.AppTest" time="0.008"/>
 </testsuite>
