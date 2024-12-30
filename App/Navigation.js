@@ -1,3 +1,4 @@
+// Navigation.js
 import React, { useEffect, useState, createContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,6 +8,8 @@ import FitnessScreen from './screens/FitnessScreen';
 import HealthScreen from './screens/HealthScreen';
 import SettingsScreen from './screens/SettingScreen';
 import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen'; // Import the RegisterScreen
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen'; // Import the ForgotPasswordScreen
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
@@ -19,21 +22,20 @@ const MainTabNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
-        let iconColor = focused ? '#007bff' : 'gray'; // Same color as logout button when focused
 
         if (route.name === 'Fitness') {
           iconName = 'bolt';
         } else if (route.name === 'Health') {
-          iconName = 'person'; // Update to match the screenshot
+          iconName = 'person'; 
         } else if (route.name === 'Settings') {
           iconName = 'settings';
         }
 
-        return <MaterialIcons name={iconName} size={size} color={iconColor} />;
+        return <MaterialIcons name={iconName} size={size} color={color} />;
       },
       tabBarActiveTintColor: '#007bff', // Active tint color
       tabBarInactiveTintColor: 'gray',
-      tabBarStyle: { paddingBottom: 10, paddingTop: 10 }, // More padding above icons
+      tabBarStyle: { paddingBottom: 15, paddingTop: 5 }, // More padding above icons
     })}
   >
     <Tab.Screen name="Fitness" component={FitnessScreen} />
@@ -66,12 +68,17 @@ const Navigation = () => {
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {!isAuthenticated ? (
+        {isAuthenticated ? (
+          <Stack.Screen name="MainMenu" component={MainTabNavigator} />
+            ) : (
+            <>
             <Stack.Screen name="Login" component={LoginScreen} />
-          ) : (
-            <Stack.Screen name="MainMenu" component={MainTabNavigator} />
-          )}
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            </>
+            )}
         </Stack.Navigator>
+
       </NavigationContainer>
     </AuthContext.Provider>
   );

@@ -1,4 +1,5 @@
 // RegisterScreen.js
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { insertUser, hashPassword } from '../Database';
@@ -10,12 +11,17 @@ const RegisterScreen = ({ navigation }) => {
   const [error, setError] = useState('');
 
   const handleRegister = async () => {
+    if (!name || !email || !password) {
+      setError('All fields are required');
+      return;
+    }
+
     try {
       const hashedPassword = await hashPassword(password);
       await insertUser(name, email, hashedPassword);
       navigation.navigate('Login');
     } catch (err) {
-      setError('Registration failed');
+      setError(err.message || 'Registration failed');
     }
   };
 
@@ -46,7 +52,7 @@ const RegisterScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
         <Text style={styles.registerBtnText}>Register</Text>
       </TouchableOpacity>
-      <Text style={styles.errorText}>{error}</Text>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.loginLink}>Already have an account? Login</Text>
       </TouchableOpacity>
