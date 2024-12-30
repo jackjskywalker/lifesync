@@ -19,19 +19,21 @@ const MainTabNavigator = () => (
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
+        let iconColor = focused ? '#007bff' : 'gray'; // Same color as logout button when focused
 
         if (route.name === 'Fitness') {
-          iconName = focused ? 'flash-on' : 'flash-off';
+          iconName = 'bolt';
         } else if (route.name === 'Health') {
-          iconName = focused ? 'person' : 'person-outline';
+          iconName = 'person'; // Update to match the screenshot
         } else if (route.name === 'Settings') {
-          iconName = focused ? 'settings' : 'settings';
+          iconName = 'settings';
         }
 
-        return <MaterialIcons name={iconName} size={size} color={color} />;
+        return <MaterialIcons name={iconName} size={size} color={iconColor} />;
       },
-      tabBarActiveTintColor: 'blue',
+      tabBarActiveTintColor: '#007bff', // Active tint color
       tabBarInactiveTintColor: 'gray',
+      tabBarStyle: { paddingBottom: 10, paddingTop: 10 }, // More padding above icons
     })}
   >
     <Tab.Screen name="Fitness" component={FitnessScreen} />

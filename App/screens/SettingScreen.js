@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../Navigation';
+import { MaterialIcons } from 'react-native-vector-icons';
 
 const settingsOptions = [
   'Account Profile', 'Calendar Integration', 'Fitness Preferences', 'Diet Preferences',
   'Notifications', 'Help Center', 'Privacy & Security', 'Terms & Conditions'
 ];
-
-const placeholderImage = 'path_to_placeholder_image'; // Update with actual path or URL
 
 export default function SettingsScreen({ navigation }) {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -25,16 +24,19 @@ export default function SettingsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Image source={{ uri: placeholderImage }} style={styles.profileImage} />
-        <Text style={styles.name}>John Doe</Text>
-        <Text style={styles.username}>@johndoe</Text>
+        <View style={styles.profileImage}>
+          <MaterialIcons name="person" size={50} color="gray" /> {/* Placeholder person icon */}
+        </View>
+        <MaterialIcons name="edit" size={24} color="#007bff" style={styles.editIcon} /> {/* Edit icon */}
+        <Text style={styles.name}>Jack Skywalker</Text>
+        <Text style={styles.username}>@jackskywalker</Text>
       </View>
       <FlatList
         data={settingsOptions}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity style={styles.option}>
             <Text style={styles.optionText}>{item}</Text>
-            <Text style={styles.arrow}>{'>'}</Text>
+            <MaterialIcons name="chevron-right" size={24} color="gray" /> {/* New arrow icon */}
           </TouchableOpacity>
         )}
         keyExtractor={item => item}
@@ -55,11 +57,23 @@ const styles = StyleSheet.create({
   profile: {
     alignItems: 'center',
     marginTop: 20,
+    paddingBottom: 20,
   },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    backgroundColor: '#e0e0e0', // Placeholder color
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  editIcon: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: '#fff', // Background for edit icon
+    borderRadius: 12,
+    padding: 2,
   },
   name: {
     fontSize: 18,
@@ -69,16 +83,15 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 14,
     color: '#555',
+    marginBottom: 10, // Added margin to increase spacing below the username
   },
   option: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
   },
   optionText: {
-    fontSize: 16,
-  },
-  arrow: {
     fontSize: 16,
   },
   separator: {
@@ -86,10 +99,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   logoutButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#007bff', // Same blue as setting icon
     padding: 15,
     alignItems: 'center',
-    marginTop: 20,
   },
   logoutText: {
     color: '#fff',
