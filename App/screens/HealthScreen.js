@@ -44,7 +44,7 @@ const HealthScreen = () => {
         <Text style={styles.priceText}>{item.price}</Text>
       </View>
       <Text style={styles.recipeTitle}>{item.title}</Text>
-      <Text style={styles.recipeDetails}>{`${item.time}, ${item.difficulty}`}</Text> {/* Fixed this line */}
+      <Text style={styles.recipeDetails}>{`${item.time}, ${item.difficulty}`}</Text> 
       <TouchableOpacity style={styles.addButton}>
         <Text style={styles.addButtonText}>Add to Recipe</Text>
       </TouchableOpacity>

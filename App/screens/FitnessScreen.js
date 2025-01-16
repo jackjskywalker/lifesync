@@ -24,7 +24,7 @@ export default function FitnessScreen({ navigation }) {
         <Text style={styles.workoutTitle}>{item.title}</Text>
         <Text style={styles.workoutDetails}>{item.duration} - {item.time}</Text>
       </View>
-      <MaterialIcons name="chevron-right" size={30} color="#000" />
+      <MaterialIcons name="chevron-right" size={30} color="#4285F4" style={styles.iconStyle} />
     </TouchableOpacity>
   );
 
@@ -47,7 +47,7 @@ export default function FitnessScreen({ navigation }) {
       ListHeaderComponent={
         <View style={styles.headerContainer}>
           <Image 
-            source={require('../assets/Images/landing.jpg')}  
+            source={require('../assets/Images/landing.jpg')}
             style={styles.headerImage}
           />
           <Text style={styles.title}>Upcoming Workouts</Text>
@@ -143,6 +143,9 @@ const styles = StyleSheet.create({
     color: '#555',
     fontSize: 14,
   },
+  iconStyle: {
+    marginLeft: 10,
+  },
   loadMoreButton: {
     alignSelf: 'center',
     padding: 10,
@@ -165,11 +168,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 200,
     alignItems: 'center',
+    position: 'relative',  // Allow absolute positioning for the duration icon
   },
   planImage: {
     width: '100%',
     height: 100,
     borderRadius: 8,
+    marginBottom: 20, // Add margin bottom to give space for the icon
   },
   planDuration: {
     position: 'absolute',
@@ -179,6 +184,7 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 5,
     borderRadius: 10,
+    zIndex: 10, // Ensure the icon is above the image
   },
   planTitle: {
     fontSize: 18,

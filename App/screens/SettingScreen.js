@@ -35,15 +35,18 @@ export default function SettingsScreen({ navigation }) {
         data={settingsOptions}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.option}>
-            <Text style={styles.optionText}>{item}</Text>
-            <MaterialIcons name="chevron-right" size={24} color="gray" /> {/* New arrow icon */}
+            <Text style={styles.optionText}>{item}</Text> {/* Ensure text is wrapped in <Text> */}
+            {/* Wrap icon in a Text element explicitly */}
+            <Text>
+              <MaterialIcons name="chevron-right" size={24} color="gray" /> {/* Right arrow icon */}
+            </Text>
           </TouchableOpacity>
         )}
         keyExtractor={item => item}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>Logout</Text> {/* Ensure text is wrapped in <Text> */}
       </TouchableOpacity>
     </View>
   );

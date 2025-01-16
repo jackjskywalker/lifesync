@@ -1,5 +1,6 @@
+// StatsScreen.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
 
 const healthData = [
@@ -44,7 +45,7 @@ export default function HealthScreen({ navigation }) {
       keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Health Overview</Text>
+          <Text style={styles.title}>Stats Overview</Text>
           <FlatList
             data={healthData}
             renderItem={renderHealthItem}
