@@ -1,5 +1,3 @@
-// FitnessScreen.js
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
@@ -9,13 +7,11 @@ const workoutData = [
   { id: '2', title: "Leg Workout", duration: "65 minutes", time: "Wednesday", imageUri: require('../assets/Images/fit2.jpg') },
   { id: '3', title: "Cardio Training", duration: "30 minutes", time: "Friday", imageUri: require('../assets/Images/fit3.jpg') },
   { id: '4', title: "Yoga Session", duration: "45 minutes", time: "Saturday", imageUri: require('../assets/Images/fit4.jpg') },
-  // Add more workouts as needed
 ];
 
 const planData = [
   { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
   { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
-  // Add more plans as needed
 ];
 
 export default function FitnessScreen({ navigation }) {
@@ -28,7 +24,7 @@ export default function FitnessScreen({ navigation }) {
         <Text style={styles.workoutTitle}>{item.title}</Text>
         <Text style={styles.workoutDetails}>{item.duration} - {item.time}</Text>
       </View>
-      <MaterialIcons name="chevron-right" size={30} color="#000" />
+      <MaterialIcons name="chevron-right" size={30} color="#4285F4" style={styles.iconStyle} />
     </TouchableOpacity>
   );
 
@@ -47,15 +43,14 @@ export default function FitnessScreen({ navigation }) {
   return (
     <FlatList
       data={[]} 
-      keyExtractor={(item, index) => index.toString()} 
+      keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={
         <View style={styles.headerContainer}>
           <Image 
-            source={require('../assets/Images/landing.jpg')}  
+            source={require('../assets/Images/landing.jpg')}
             style={styles.headerImage}
           />
           <Text style={styles.title}>Upcoming Workouts</Text>
-
           <FlatList 
             data={workoutData.slice(0, visibleWorkouts)}
             renderItem={renderWorkoutItem}
@@ -148,6 +143,9 @@ const styles = StyleSheet.create({
     color: '#555',
     fontSize: 14,
   },
+  iconStyle: {
+    marginLeft: 10,
+  },
   loadMoreButton: {
     alignSelf: 'center',
     padding: 10,
@@ -170,11 +168,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 200,
     alignItems: 'center',
+    position: 'relative',  // Allow absolute positioning for the duration icon
   },
   planImage: {
     width: '100%',
     height: 100,
     borderRadius: 8,
+    marginBottom: 20, // Add margin bottom to give space for the icon
   },
   planDuration: {
     position: 'absolute',
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     color: 'white',
     padding: 5,
     borderRadius: 10,
+    zIndex: 10, // Ensure the icon is above the image
   },
   planTitle: {
     fontSize: 18,
@@ -236,7 +237,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 15,
+    padding: 15,
+    marginTop: 10,
   },
   viewAllText: {
     color: '#4285F4',

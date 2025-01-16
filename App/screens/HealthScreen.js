@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
 
 const categories = ['Muscle Gain', 'Fat Loss', 'Vegan', 'Carnivore'];
@@ -44,12 +44,13 @@ const HealthScreen = () => {
         <Text style={styles.priceText}>{item.price}</Text>
       </View>
       <Text style={styles.recipeTitle}>{item.title}</Text>
-      <Text style={styles.recipeDetails}>{`${item.time}, ${item.difficulty}`}</Text>
+      <Text style={styles.recipeDetails}>{`${item.time}, ${item.difficulty}`}</Text> 
       <TouchableOpacity style={styles.addButton}>
         <Text style={styles.addButtonText}>Add to Recipe</Text>
       </TouchableOpacity>
     </View>
   );
+  
 
   const renderYourRecipes = ({ item }) => (
     <TouchableOpacity style={styles.workoutContainer}>
@@ -63,80 +64,82 @@ const HealthScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Category Selector */}
-        <View style={styles.topBar}>
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category}
-              style={[
-                styles.categoryButton,
-                selectedCategory === category && styles.categoryButtonSelected
-              ]}
-              onPress={() => setSelectedCategory(category)}
-            >
-              <Text
+    <FlatList
+      data={[]}
+      keyExtractor={(item, index) => index.toString()}
+      ListHeaderComponent={
+        <View style={styles.container}>
+          {/* Category Selector */}
+          <View style={styles.topBar}>
+            {categories.map((category) => (
+              <TouchableOpacity
+                key={category}
                 style={[
-                  styles.categoryButtonText,
-                  selectedCategory === category && styles.categoryButtonTextSelected
+                  styles.categoryButton,
+                  selectedCategory === category && styles.categoryButtonSelected
                 ]}
+                onPress={() => setSelectedCategory(category)}
               >
-                {category}
+                <Text
+                  style={[
+                    styles.categoryButtonText,
+                    selectedCategory === category && styles.categoryButtonTextSelected
+                  ]}
+                >
+                  {category}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Recommended Recipes (Horizontal List) */}
+          <Text style={styles.sectionTitle}>Recommended</Text>
+          <FlatList
+            data={recipes[selectedCategory]}
+            renderItem={renderRecipeItem}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            contentContainerStyle={styles.recipeContainer}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      }
+      ListFooterComponent={
+        <View style={styles.container}>
+          {/* Your Recipes */}
+          <Text style={styles.sectionTitle}>Your Recipes</Text>
+          <FlatList
+            data={showAll ? allRecipes.slice(0, 5) : allRecipes.slice(0, 3)}
+            renderItem={renderYourRecipes}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.recipeContainer}
+          />
+
+          {/* Load More / Show Less Button */}
+          {allRecipes.length > 3 && (
+            <TouchableOpacity
+              style={styles.updatePreferencesButton}
+              onPress={() => setShowAll((prev) => !prev)}
+            >
+              <Text style={styles.updatePreferencesText}>
+                {showAll ? 'Show Less' : 'Load More'}
               </Text>
             </TouchableOpacity>
-          ))}
+          )}
+
+          {/* All Plans (Horizontal List) */}
+          <Text style={styles.sectionTitle}>All Plans</Text>
+          <FlatList
+            data={allRecipes}
+            renderItem={renderRecipeItem}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            contentContainerStyle={styles.recipeContainer}
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
-
-        {/* Recommended Recipes (Horizontal List) */}
-        <Text style={styles.sectionTitle}>Recommended</Text>
-        <FlatList
-          data={recipes[selectedCategory]}
-          renderItem={renderRecipeItem}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          contentContainerStyle={styles.recipeContainer}
-          showsHorizontalScrollIndicator={false}
-        />
-
-        {/* Your Recipes */}
-        <Text style={styles.sectionTitle}>Your Recipes</Text>
-        <FlatList
-          data={showAll ? allRecipes.slice(0, 5) : allRecipes.slice(0, 3)}
-          renderItem={renderYourRecipes}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.recipeContainer}
-        />
-
-        {/* Load More / Show Less Button */}
-        {allRecipes.length > 3 && (
-          <TouchableOpacity
-            style={styles.updatePreferencesButton}
-            onPress={() => setShowAll((prev) => !prev)}
-          >
-            <Text style={styles.updatePreferencesText}>
-              {showAll ? 'Show Less' : 'Load More'}
-            </Text>
-          </TouchableOpacity>
-        )}
-
-        {/* All Plans (Horizontal List) */}
-        <Text style={styles.sectionTitle}>All Plans</Text>
-        <FlatList
-          data={allRecipes}
-          renderItem={renderRecipeItem}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          contentContainerStyle={styles.recipeContainer}
-          showsHorizontalScrollIndicator={false}
-        />
-      </ScrollView>
-
-      {/* Floating Update Preferences Button */}
-      <TouchableOpacity style={styles.updatePreferencesButtonBottom}>
-        <Text style={styles.updatePreferencesText}>Update Preferences</Text>
-      </TouchableOpacity>
-    </View>
+      }
+    />
   );
 };
 
@@ -144,9 +147,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  scrollContainer: {
-    paddingBottom: 100, // Add space for the floating button
   },
   topBar: {
     flexDirection: 'row',
@@ -255,17 +255,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
-  },
-  updatePreferencesButtonBottom: {
-    position: 'absolute',
-    bottom: 16,
-    left: 16,
-    right: 16,
-    backgroundColor: '#4285F4',
-    padding: 15,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   updatePreferencesText: {
     color: 'white',
