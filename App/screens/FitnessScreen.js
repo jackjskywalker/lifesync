@@ -1,5 +1,3 @@
-// FitnessScreen.js
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
@@ -9,13 +7,11 @@ const workoutData = [
   { id: '2', title: "Leg Workout", duration: "65 minutes", time: "Wednesday", imageUri: require('../assets/Images/fit2.jpg') },
   { id: '3', title: "Cardio Training", duration: "30 minutes", time: "Friday", imageUri: require('../assets/Images/fit3.jpg') },
   { id: '4', title: "Yoga Session", duration: "45 minutes", time: "Saturday", imageUri: require('../assets/Images/fit4.jpg') },
-  // Add more workouts as needed
 ];
 
 const planData = [
   { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
   { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
-  // Add more plans as needed
 ];
 
 export default function FitnessScreen({ navigation }) {
@@ -47,7 +43,7 @@ export default function FitnessScreen({ navigation }) {
   return (
     <FlatList
       data={[]} 
-      keyExtractor={(item, index) => index.toString()} 
+      keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={
         <View style={styles.headerContainer}>
           <Image 
@@ -55,7 +51,6 @@ export default function FitnessScreen({ navigation }) {
             style={styles.headerImage}
           />
           <Text style={styles.title}>Upcoming Workouts</Text>
-
           <FlatList 
             data={workoutData.slice(0, visibleWorkouts)}
             renderItem={renderWorkoutItem}
@@ -236,7 +231,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 15,
+    padding: 15,
+    marginTop: 10,
   },
   viewAllText: {
     color: '#4285F4',
