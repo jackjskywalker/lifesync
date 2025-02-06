@@ -1,105 +1,134 @@
 // RegisterScreen.js
-
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { insertUser, hashPassword } from '../Database';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { API_URL } from '../config';
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleRegister = async () => {
     if (!name || !email || !password) {
-      setError('All fields are required');
+      Alert.alert('Error', 'All fields are required');
       return;
     }
 
     try {
-      const hashedPassword = await hashPassword(password);
-      await insertUser(name, email, hashedPassword);
-      navigation.navigate('Login');
-    } catch (err) {
-      setError(err.message || 'Registration failed');
+      const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed. Please try again.');
+      }
+
+      Alert.alert('Success', 'Registration successful', [
+        { text: 'OK', onPress: () => navigation.navigate('Login') },
+      ]);
+    } catch (error) {
+      console.error('Registration Error:', error);
+      Alert.alert('Error', error.message || 'An error occurred');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        onChangeText={setName}
-        value={name}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email Address"
-        onChangeText={setEmail}
-        value={email}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
-        <Text style={styles.registerBtnText}>Register</Text>
-      </TouchableOpacity>
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.loginLink}>Already have an account? Login</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS == 'ios' ? 'padding' : undefined}
+    >
+      <View style={styles.innerContainer}>
+        <Text style={styles.title}>Register</Text>
+        
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          onChangeText={setName}
+          value={name}
+          autoCapitalize="words"
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          onChangeText={setEmail}
+          value={email}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          onChangeText={setPassword}
+          value={password}
+          secureTextEntry
+        />
+
+        <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
+          <Text style={styles.registerBtnText}>Register</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.loginLink}>Already have an account? Login</Text>
+        </TouchableOpacity>
+
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1 },
+  innerContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
     backgroundColor: '#f8f9fc',
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     marginBottom: 20,
     color: '#333',
+    alignSelf: 'center',
   },
   input: {
-    width: '100%',
-    padding: 10,
+    padding: 15,
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 5,
-    marginBottom: 10,
-    fontSize: 16,
+    borderRadius: 8,
+    marginVertical: 10,
   },
   registerBtn: {
     backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
+    padding: 15,
+    borderRadius: 8,
     alignItems: 'center',
+    marginTop: 10,
   },
   registerBtnText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 16,
   },
-  errorText: {
-    color: 'red',
-    marginTop: 10,
-  },
   loginLink: {
-    marginTop: 10,
+    marginTop: 20,
     color: '#007bff',
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
 

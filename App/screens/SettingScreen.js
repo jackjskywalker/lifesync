@@ -1,16 +1,57 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
+// SettingsScreen.js
+
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../Navigation';
-import { MaterialIcons } from 'react-native-vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { API_URL } from '../config';
 
 const settingsOptions = [
-  'Account Profile', 'Calendar Integration', 'Fitness Preferences', 'Diet Preferences',
-  'Notifications', 'Help Center', 'Privacy & Security', 'Terms & Conditions'
+  'Account Profile',
+  'Calendar Integration',
+  'Fitness Preferences',
+  'Diet Preferences',
+  'Notifications',
+  'Help Center',
+  'Privacy & Security',
+  'Terms & Conditions',
 ];
 
 export default function SettingsScreen({ navigation }) {
   const { setIsAuthenticated } = useContext(AuthContext);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        const response = await fetch(`${API_URL}/user`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const data = await response.json();
+        setName(data.name);
+        setEmail(data.email);
+      } catch (error) {
+        console.error('Failed to load user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -25,28 +66,27 @@ export default function SettingsScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.profile}>
         <View style={styles.profileImage}>
-          <MaterialIcons name="person" size={50} color="gray" /> {/* Placeholder person icon */}
+          <MaterialIcons name="person" size={50} color="gray" />
         </View>
-        <MaterialIcons name="edit" size={24} color="#007bff" style={styles.editIcon} /> {/* Edit icon */}
-        <Text style={styles.name}>Jack Skywalker</Text>
-        <Text style={styles.username}>@jackskywalker</Text>
+        <TouchableOpacity style={styles.editIcon}>
+          <MaterialIcons name="edit" size={24} color="#007bff" />
+        </TouchableOpacity>
+        <Text style={styles.name}>{name || 'User Name'}</Text>
+        <Text style={styles.username}>{email || 'user@example.com'}</Text>
       </View>
       <FlatList
         data={settingsOptions}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.option}>
-            <Text style={styles.optionText}>{item}</Text> {/* Ensure text is wrapped in <Text> */}
-            {/* Wrap icon in a Text element explicitly */}
-            <Text>
-              <MaterialIcons name="chevron-right" size={24} color="gray" /> {/* Right arrow icon */}
-            </Text>
+            <Text style={styles.optionText}>{item}</Text>
+            <MaterialIcons name="chevron-right" size={24} color="gray" />
           </TouchableOpacity>
         )}
-        keyExtractor={item => item}
+        keyExtractor={(item) => item}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text> {/* Ensure text is wrapped in <Text> */}
+        <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
@@ -66,7 +106,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#e0e0e0', // Placeholder color
+    backgroundColor: '#e0e0e0',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -74,7 +114,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: '#fff', // Background for edit icon
+    backgroundColor: '#fff',
     borderRadius: 12,
     padding: 2,
   },
@@ -86,7 +126,7 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 14,
     color: '#555',
-    marginBottom: 10, // Added margin to increase spacing below the username
+    marginBottom: 10,
   },
   option: {
     flexDirection: 'row',
@@ -102,7 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   logoutButton: {
-    backgroundColor: '#007bff', // Same blue as setting icon
+    backgroundColor: '#007bff',
     padding: 15,
     alignItems: 'center',
   },

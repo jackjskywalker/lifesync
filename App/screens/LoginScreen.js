@@ -1,88 +1,133 @@
 // LoginScreen.js
 
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { getUserByEmail, comparePassword } from '../Database';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../Navigation';
+import { API_URL } from '../config';
 
 const LoginScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter both email and password');
+      return;
+    }
+
     try {
-      const user = await getUserByEmail(email);
-      if (user && await comparePassword(password, user.password)) {
-        await AsyncStorage.setItem('userToken', 'token'); // Placeholder token
-        setIsAuthenticated(true);
-      } else {
-        setError('Invalid email or password');
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed. Please try again.');
       }
-    } catch (err) {
-      setError('An error occurred');
+
+      // Store token and user name
+      await AsyncStorage.setItem('userToken', data.token);
+      await AsyncStorage.setItem('userName', data.name);
+
+      // Update auth state
+      setIsAuthenticated(true);
+
+      // Navigate to the main app screen
+      navigation.navigate('Home'); // Replace 'Home' with your home screen name
+
+    } catch (error) {
+      console.error('Login Error:', error);
+      Alert.alert('Error', error.message || 'An error occurred');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Text style={styles.title}>Welcome!</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email Address"
-        onChangeText={setEmail}
-        value={email}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-      />
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.forgotPassword}>Forgot password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-        <Text style={styles.loginBtnText}>Login</Text>
-      </TouchableOpacity>
-      <Text style={styles.errorText}>{error}</Text>
-      <Text style={styles.registerText}>Not a member? <Text style={styles.registerLink} onPress={() => navigation.navigate('Register')}>Register now</Text></Text>
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <View style={styles.innerContainer}>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Text style={styles.title}>Welcome!</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          onChangeText={setEmail}
+          value={email}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          onChangeText={setPassword}
+          value={password}
+          secureTextEntry
+        />
+
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.forgotPassword}>Forgot password?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+          <Text style={styles.loginBtnText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.registerText}>
+            Not a member? <Text style={styles.registerLink}>Register now</Text>
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1 },
+  innerContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
     backgroundColor: '#f8f9fc',
   },
   logo: {
     width: 100,
     height: 100,
     marginBottom: 20,
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     marginBottom: 20,
     color: '#333',
+    alignSelf: 'center',
   },
   input: {
-    width: '100%',
-    padding: 10,
+    padding: 15,
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 5,
-    marginBottom: 10,
-    fontSize: 16,
+    borderRadius: 8,
+    marginVertical: 10,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
@@ -91,23 +136,19 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     backgroundColor: '#007bff',
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
+    padding: 15,
+    borderRadius: 8,
     alignItems: 'center',
   },
   loginBtnText: {
     color: 'white',
     fontSize: 16,
   },
-  errorText: {
-    color: 'red',
-    marginTop: 10,
-  },
   registerText: {
-    marginTop: 10,
+    marginTop: 20,
     fontSize: 14,
     color: '#555',
+    textAlign: 'center',
   },
   registerLink: {
     color: '#007bff',
