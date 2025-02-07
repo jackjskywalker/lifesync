@@ -9,6 +9,12 @@ const workoutData = [
   { id: '4', title: "Yoga Session", duration: "45 minutes", time: "Saturday", imageUri: require('../assets/Images/fit4.jpg') },
 ];
 
+const todaysWorkout = [
+  { id: '1', title: "Full Workout", duration: '90 minutes', time: "Today", imageUri: require('../assets/Images/fit5.jpg') }
+];
+
+
+
 const planData = [
   { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
   { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
@@ -24,7 +30,17 @@ export default function FitnessScreen({ navigation }) {
         <Text style={styles.workoutTitle}>{item.title}</Text>
         <Text style={styles.workoutDetails}>{item.duration} - {item.time}</Text>
       </View>
-      <MaterialIcons name="chevron-right" size={30} color="#4285F4" style={styles.iconStyle} />
+      <MaterialIcons name="chevron-right" size={30} color="#0690ffff" style={styles.iconStyle} />
+    </TouchableOpacity>
+  );
+
+  const renderTodaysWorkout = ({ item }) => (
+    <TouchableOpacity style={styles.todayContainer}>
+      <View style={styles.todayInfo}>
+        <Image source={item.imageUri} style={styles.todayImage} />
+        <Text style={styles.todayTitle}>{item.title}</Text>
+        <Text style={styles.todayDetails}>{item.duration} - {item.time}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -40,16 +56,56 @@ export default function FitnessScreen({ navigation }) {
     </View>
   );
 
+  const CalendarBar = () => {
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const todayIndex = new Date().getDay();
+    const todayDate = new Date();
+  
+    return (
+      <View style={styles.calendarContainer}>
+        {daysOfWeek.map((day, index) => {
+          const date = new Date();
+          date.setDate(todayDate.getDate() - todayIndex + index); // Adjust date to match the day
+  
+          return (
+            <View
+              key={index}
+              style={[
+                styles.dayBox,
+                index === todayIndex && styles.currentDayBox, // Highlight today's box
+              ]}
+            >
+              <Text style={[styles.dayText, index === todayIndex && styles.currentDayText]}>
+                {day}
+              </Text>
+              <Text style={[styles.dateText, index === todayIndex && styles.currentDateText]}>
+                {date.getDate()}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+    );
+  };
+  
+
   return (
     <FlatList
       data={[]} 
       keyExtractor={(item, index) => index.toString()}
       ListHeaderComponent={
         <View style={styles.headerContainer}>
-          <Image 
-            source={require('../assets/Images/landing.jpg')}
-            style={styles.headerImage}
+
+          <CalendarBar/>
+
+          <Text style={styles.firstTitle}>Today</Text>
+          <FlatList 
+            data={todaysWorkout.slice(0, visibleWorkouts)}
+            renderItem={renderTodaysWorkout}
+            keyExtractor={item => item.id}
+            contentContainerStyle={{ paddingBottom: 20 }}
           />
+
           <Text style={styles.title}>Upcoming Workouts</Text>
           <FlatList 
             data={workoutData.slice(0, visibleWorkouts)}
@@ -101,47 +157,79 @@ export default function FitnessScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff', 
+    backgroundColor: '#f8f9fc', 
   },
   headerContainer: {
-    backgroundColor: '#fff', 
+    backgroundColor: '#f8f9fc', 
   },
   footerContainer: {
-    backgroundColor: '#fff', 
-  },
-  headerImage: {
-    width: '100%',
-    height: 200,
+    backgroundColor: '#f8f9fc', 
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     margin: 15,
     marginTop: 20,
+    color: '#2C2D2F',
+    textAlign: 'center',
   },
   workoutContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
     padding: 20,
     margin: 10,
-    borderRadius: 8,
+    backgroundColor: '#2585F820',
+    borderRadius: 10,
   },
   workoutImage: {
     width: 50,
     height: 50,
     marginRight: 10,
-    borderRadius: 8,
+    borderRadius: 5,
   },
   workoutInfo: {
     flex: 1,
   },
   workoutTitle: {
     fontSize: 18,
+    color: '#2C2D2F',
+    fontWeight: 'bold',
   },
   workoutDetails: {
-    color: '#555',
+    color: '#2C2D2F',
     fontSize: 14,
+  },
+  firstTitle: {
+    marginTop: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  todayContainer: {
+    alignItems: 'center',
+    padding: 20,
+    margin: 10,
+    backgroundColor: '#0690ffff',
+    borderRadius: 10,
+  },
+  todayInfo: {
+    flex: 1,
+  },
+  todayImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+  },
+  todayTitle: {
+    fontSize: 18,
+    color: '#f8f9fc',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  todayDetails: {
+    color: '#f8f9fc',
+    fontSize: 14,
+    textAlign: 'center',
   },
   iconStyle: {
     marginLeft: 10,
@@ -149,23 +237,21 @@ const styles = StyleSheet.create({
   loadMoreButton: {
     alignSelf: 'center',
     padding: 10,
-    borderRadius: 20,
-    borderColor: '#ddd',
-    borderWidth: 1,
+    borderRadius: 15,
     marginVertical: 10,
     width: '90%',
-    backgroundColor: '#4285F4',
+    backgroundColor: '#0690ffff',
   },
   loadMoreText: {
     fontSize: 16,
-    color: '#fff',
+    color: '#f8f9fc',
     textAlign: 'center',
   },
   planContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#2C2D2F',
     padding: 20,
     margin: 10,
-    borderRadius: 8,
+    borderRadius: 15,
     width: 200,
     alignItems: 'center',
     position: 'relative',  // Allow absolute positioning for the duration icon
@@ -180,8 +266,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: '#4285F4',
-    color: 'white',
+    backgroundColor: '#0690ffff',
+    color: '#f8f9fc',
     padding: 5,
     borderRadius: 10,
     zIndex: 10, // Ensure the icon is above the image
@@ -190,15 +276,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     marginTop: 10,
+    color: '#f8f9fc',
   },
   planDescription: {
     fontSize: 14,
-    color: '#555',
+    color: '#f8f9fc',
     textAlign: 'center',
     marginVertical: 5,
   },
   startButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: '#0690ffff',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
@@ -224,7 +311,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   updateButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: '#0690ffff',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
@@ -241,7 +328,42 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   viewAllText: {
-    color: '#4285F4',
+    color: '#0690ffff',
     fontSize: 16,
   },
+  calendarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 15,
+    borderRadius: 40,
+    padding: 5,
+  },
+  dayBox: {
+    width: 40,
+    height: 60,
+    borderRadius: 5,
+    alignItems: 'center',
+    backgroundColor: '#2585F830',
+  },
+  currentDayBox: {
+    backgroundColor: '#2585F8', // Highlight for today
+  },
+  dayText: {
+    fontSize: 16,
+    color: '#2C2D2F',
+    marginTop: 6,
+  },
+  dateText: {
+    color: '#2C2D2F',
+    fontSize: 20,
+
+  },
+  currentDateText: {
+    color: '#e6f2ff',
+    fontWeight: 'bold',
+  },
+  currentDayText: {
+    color: '#e6f2ff',
+    fontWeight: 'bold',
+  },  
 });

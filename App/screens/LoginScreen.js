@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 import { getUserByEmail, comparePassword } from '../Database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../Navigation';
+import { StatusBar } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -28,8 +29,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Text style={styles.title}>Welcome!</Text>
+      <StatusBar barStyle="light" />
+      <Image source={require('../assets/lightLogo1.png')} style={styles.logo} />
+      <Text style={styles.title}>LifeSync<Text style={styles.titleAccent}>+</Text></Text> 
+      <Text style={styles.heading}>Health + Fitness</Text>
       <TextInput
         style={styles.input}
         placeholder="Email Address"
@@ -37,6 +40,7 @@ const LoginScreen = ({ navigation }) => {
         value={email}
         keyboardType="email-address"
         autoCapitalize="none"
+        placeholderTextColor= "#2C2D2F80"
       />
       <TextInput
         style={styles.input}
@@ -44,7 +48,9 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         value={password}
         secureTextEntry
+        placeholderTextColor="#2C2D2F80"
       />
+      <View style={{ width: '90%', alignSelf: 'center' }}></View>
       <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotPassword}>Forgot password?</Text>
       </TouchableOpacity>
@@ -60,57 +66,77 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f8f9fc',
+    color: '#2C2D2F',
+    backgroundColor: '#F4F5F7',
   },
   logo: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
+    alignSelf: 'center',
+    width: 230,
+    height: 230,
+    marginBottom: 10,
+    marginTop: 100,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: '#333',
+    alignSelf: 'center',
+    fontSize: 40,
+    color: '#2C2D2F',
+    letterSpacing: 3,
+    fontWeight: 'bold',
+  },
+  titleAccent: {
+    color: '#0690ffff',
+    fontWeight: 'bold',
+  },
+  heading: {
+    alignSelf: 'center',
+    marginBottom: 45,
+    color: '#0690ffff',
+    letterSpacing: 3,
+    fontSize: 20,
   },
   input: {
-    width: '100%',
+    alignSelf: 'center',
+    width: '90%',
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 0.75,
+    borderColor: '#2C2D2F',
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 8,
     fontSize: 16,
   },
   forgotPassword: {
-    alignSelf: 'flex-end',
-    color: '#007bff',
-    marginBottom: 10,
+    alignSelf: 'flex-start',
+    textAlign: 'left',
+    marginLeft: 20,
+    color: '#0690ffff',
+    marginBottom: 25,
   },
   loginBtn: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#0690ffff',
     padding: 10,
     borderRadius: 5,
-    width: '100%',
+    width: '50%',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   loginBtnText: {
     color: 'white',
     fontSize: 16,
   },
   errorText: {
+    alignSelf: 'center',
     color: 'red',
     marginTop: 10,
   },
   registerText: {
+    alignSelf: 'center',
     marginTop: 10,
     fontSize: 14,
-    color: '#555',
+    color: '#2C2D2F',
   },
   registerLink: {
-    color: '#007bff',
+    color: '#0690ffff',
   },
 });
 

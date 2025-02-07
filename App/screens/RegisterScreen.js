@@ -1,7 +1,7 @@
 // RegisterScreen.js
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { insertUser, hashPassword } from '../Database';
 
 const RegisterScreen = ({ navigation }) => {
@@ -27,12 +27,15 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Image source={require('../assets/lightLogo1.png')} style={styles.logo} />
+      <Text style={styles.title}>LifeSync<Text style={styles.titleAccent}>+</Text></Text> 
+      <Text style={styles.heading}>Health + Fitness</Text>
       <TextInput
         style={styles.input}
         placeholder="Name"
         onChangeText={setName}
         value={name}
+        placeholderTextColor= "#2C2D2F80"
       />
       <TextInput
         style={styles.input}
@@ -41,6 +44,7 @@ const RegisterScreen = ({ navigation }) => {
         value={email}
         keyboardType="email-address"
         autoCapitalize="none"
+        placeholderTextColor="#2C2D2F80"
       />
       <TextInput
         style={styles.input}
@@ -48,6 +52,7 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={setPassword}
         value={password}
         secureTextEntry
+        placeholderTextColor="#2C2D2F80"
       />
       <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
         <Text style={styles.registerBtnText}>Register</Text>
@@ -68,26 +73,48 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f8f9fc',
   },
+  logo: {
+    alignSelf: 'center',
+    width: 230,
+    height: 230,
+    marginBottom: 10,
+  },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: '#333',
+    alignSelf: 'center',
+    fontSize: 40,
+    color: '#000000',
+    letterSpacing: 3,
+    fontWeight: 'bold',
+  },
+  titleAccent: {
+    color: '#0690ffff',
+    fontWeight: 'bold',
+  },
+  heading: {
+    alignSelf: 'center',
+    marginBottom: 45,
+    color: '#0690ffff',
+    letterSpacing: 3,
+    fontSize: 20,
   },
   input: {
-    width: '100%',
+    alignSelf: 'center',
+    width: '90%',
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 0.5,
+    borderColor: '#2C2D2F',
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom:8,
     fontSize: 16,
   },
   registerBtn: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#2585F8',
     padding: 10,
     borderRadius: 5,
-    width: '100%',
+    width: '50%',
     alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 15,
   },
   registerBtnText: {
     color: 'white',
@@ -99,7 +126,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 10,
-    color: '#007bff',
+    color: '#2585F8',
   },
 });
 
