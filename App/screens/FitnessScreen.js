@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react'; //ISAAC Added useEffect for random quote selection
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
+
+// ISAAC Inspirational Quotes array
+const quotes = [
+  "The best way to predict the future is to create it.",
+  "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+  "Don't watch the clock; do what it does. Keep going.",
+  "The harder you work for something, the greater you'll feel when you achieve it.",
+  "Believe you can and you're halfway there.",
+  "Success usually comes to those who are too busy to be looking for it.",
+];
 
 const workoutData = [
   { id: '1', title: "Chest Workout", duration: "75 minutes", time: "Tomorrow", imageUri: require('../assets/Images/fit1.jpg') },
@@ -16,7 +27,14 @@ const planData = [
 
 export default function FitnessScreen({ navigation }) {
   const [visibleWorkouts, setVisibleWorkouts] = useState(3);
+  const [randomQuote, setRandomQuote] = useState(''); // ISAAC State to store random quote
 
+  // new ISAAC Select a random quote when the component mounts
+  useEffect(() => {
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    setRandomQuote(quote); // Set random quote state
+  }, []); // Empty dependency array means it runs only once after the component mounts
+  
   const renderWorkoutItem = ({ item }) => (
     <TouchableOpacity style={styles.workoutContainer}>
       <Image source={item.imageUri} style={styles.workoutImage} />
@@ -50,6 +68,10 @@ export default function FitnessScreen({ navigation }) {
             source={require('../assets/Images/landing.jpg')}
             style={styles.headerImage}
           />
+          {/* ISAAC - Added the overlay container to ensure the quote is visible on the image */}
+          <View style={styles.overlayContainer}>
+            <Text style={styles.quoteText}>{randomQuote}</Text>
+          </View>
           <Text style={styles.title}>Upcoming Workouts</Text>
           <FlatList 
             data={workoutData.slice(0, visibleWorkouts)}
@@ -104,7 +126,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', 
   },
   headerContainer: {
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
+    position: 'relative', //NEW ISAAC Make the header container relative so that the overlay can be positioned on top
   },
   footerContainer: {
     backgroundColor: '#fff', 
@@ -118,6 +141,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 15,
     marginTop: 20,
+  },
+  overlayContainer: { // New style for quote overlay
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0, //remove if doesnt work
+    height: 200,  // Same height as the image
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Slight dark overlay for readability
+    borderRadius: 8, //also remove if doesnt work
+    zIndex: 10, // Ensure this is on top
+  },
+  quoteText: { // Style for the quote text NEW
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center',
+    padding: 10,
+    margin: 10,
+    fontStyle: 'italic',
   },
   workoutContainer: {
     flexDirection: 'row',
