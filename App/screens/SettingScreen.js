@@ -21,6 +21,15 @@ export default function SettingsScreen({ navigation }) {
     }
   };
 
+
+  const handleOptionPress = (option) => {
+    if (option === 'Calendar Integration') {
+      handleGoogleSignIn();
+    } else {
+      // Handle other options
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
@@ -31,6 +40,8 @@ export default function SettingsScreen({ navigation }) {
         <Text style={styles.name}>Jack Skywalker</Text>
         <Text style={styles.username}>@jackskywalker</Text>
       </View>
+
+
       <FlatList
         data={settingsOptions}
         renderItem={({ item }) => (
