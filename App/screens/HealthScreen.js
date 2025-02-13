@@ -4,32 +4,51 @@ import { MaterialIcons } from 'react-native-vector-icons';
 
 const categories = ['Muscle Gain', 'Fat Loss', 'Vegan', 'Carnivore'];
 
+//Chandler
 const recipes = {
-  'Muscle Gain': [
-    { title: 'Zucchini Noodles with Pesto', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Overnight Oats', time: '5 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Grilled Chicken Breast', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Protein Pancakes', time: '15 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/recipe.jpg') }
-  ],
-  'Fat Loss': [
-    { title: 'Avocado Salad', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Grilled Salmon with Asparagus', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Kale & Quinoa Salad', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Cauliflower Rice Stir-Fry', time: '15 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/recipe.jpg') }
-  ],
-  'Vegan': [
-    { title: 'Chickpea Curry', time: '40 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Vegan Tacos', time: '20 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Lentil Soup', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Tofu Stir Fry', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/recipe.jpg') }
-  ],
-  'Carnivore': [
-    { title: 'Bacon-wrapped Steak', time: '30 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Beef Liver Stir Fry', time: '20 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Roast Pork Belly', time: '60 Minutes', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/recipe.jpg') },
-    { title: 'Grilled Lamb Chops', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/recipe.jpg') }
-  ]
+    'Muscle Gain': [
+        { title: 'Zucchini Noodles with Pesto', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/zucchini noodles with pesto.jpg') },
+        { title: 'Overnight Oats', time: '5 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/Overnight Oats.png') },
+        { title: 'Grilled Chicken Breast', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/grilled chicken breast.jpg') },
+        { title: 'Protein Pancakes', time: '15 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Protein-pancakes-b64bd40.jpg') },
+        { title: 'Turkey and Sweet Potato Hash', time: '35 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/TurkeyHash.jpg') },
+        { title: 'Cottage Cheese with Pineapple and Walnuts', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cottage cheese.jpg') },
+        { title: 'Stuffed Bell Peppers', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/stuffed peppers.jpg') },
+        { title: 'Protein Smoothie Bowl', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/smoothie bowl.jpg') }
+    ],
+    'Fat Loss': [
+        { title: 'Avocado Salad', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/avocadosalad.jpg') },
+        { title: 'Grilled Salmon with Asparagus', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/salmon.jpg') },
+        { title: 'Kale & Quinoa Salad', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/kale.jpg') },
+        { title: 'Cauliflower Rice Stir-Fry', time: '15 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/friedrice.jpg') },
+        { title: 'Shrimp Lettuce Wraps', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/Shrimp-Lettuce-Wraps.jpg') },
+        { title: 'Cucumber Noodle Salad', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cucumber-noodle--salad.jpg') },
+        { title: 'Chicken and Vegetable Soup', time: '45 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Chicken-Vegetable-Soup.jpg') },
+        { title: 'Turkey Chili', time: '50 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Easy-Turkey-Chili.webp') }
+    ],
+    'Vegan': [
+        { title: 'Chickpea Curry', time: '40 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/chickpea.jpg') },
+        { title: 'Vegan Tacos', time: '20 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/vegantacos.jpg') },
+        { title: 'Lentil Soup', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/lentilsoup.jpg') },
+        { title: 'Tofu Stir Fry', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/tofu stirfry.jpg') },
+        { title: 'Stuffed Sweet Potatoes', time: '40 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/stuffed sweet potatoes.jpg') },
+        { title: 'Vegan Buddha Bowl', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/buddha bowl.jpg') },
+        { title: 'Peanut Butter Energy Bites', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/energy bites.jpg') },
+        { title: 'Vegan Mushroom Stroganoff', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/mushroom stroganoff.jpg') }
+
+    ],
+    'Carnivore': [
+        { title: 'Bacon-wrapped Steak', time: '30 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/bacon steak.webp') },
+        { title: 'Beef Liver Stir Fry', time: '20 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/beef stirfry.jpg') },
+        { title: 'Roast Pork Belly', time: '60 Minutes', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/pork belly.avif') },
+        { title: 'Grilled Lamb Chops', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/lamb chops.jpg') },
+        { title: 'Slow-Cooked Short Ribs', time: '7 Hours', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/slow cooked ribs.jpg') },
+        { title: 'Duck Breast with Orange Glaze', time: '60 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/duck breast orange.jpg') },
+        { title: 'Chicken Thighs in Creamy Garlic Sauce', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/chicken thighs in garlic sauce.jpg') },
+        { title: 'Smoked Sausage and Cabbage Stir Fry', time: '25 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/sausage and cabbage stir fry.jpg') }
+    ]
 };
+
 
 const allRecipes = Object.values(recipes).flat();
 
