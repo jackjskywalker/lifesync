@@ -5,29 +5,31 @@ import { MaterialIcons } from 'react-native-vector-icons';
 
 // ISAAC Inspirational Quotes array
 const quotes = [
-  "The best way to predict the future is to create it.",
-  "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-  "Don't watch the clock; do what it does. Keep going.",
-  "The harder you work for something, the greater you'll feel when you achieve it.",
-  "Believe you can and you're halfway there.",
-  "Success usually comes to those who are too busy to be looking for it.",
+    "The best way to predict the future is to create it.",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+    "Don't watch the clock; do what it does. Keep going.",
+    "The harder you work for something, the greater you'll feel when you achieve it.",
+    "Believe you can and you're halfway there.",
+    "Success usually comes to those who are too busy to be looking for it.",
 ];
 
+//Chandler: Added workout data with new workouts
 const workoutData = [
-  { id: '1', title: "Chest Workout", duration: "75 minutes", time: "Tomorrow", imageUri: require('../assets/Images/fit1.jpg') },
-  { id: '2', title: "Leg Workout", duration: "65 minutes", time: "Wednesday", imageUri: require('../assets/Images/fit2.jpg') },
-  { id: '3', title: "Cardio Training", duration: "30 minutes", time: "Friday", imageUri: require('../assets/Images/fit3.jpg') },
-  { id: '4', title: "Yoga Session", duration: "45 minutes", time: "Saturday", imageUri: require('../assets/Images/fit4.jpg') },
+    { id: '1', title: "Chest and Triceps", duration: "75 minutes", time: "Tomorrow", imageUri: require('../assets/Images/fit1.jpg') },
+    { id: '2', title: "Leg Workout", duration: "65 minutes", time: "Wednesday", imageUri: require('../assets/Images/fit2.jpg') },
+    { id: '3', title: "Cardio Training", duration: "30 minutes", time: "Friday", imageUri: require('../assets/Images/fit3.jpg') },
+    { id: '4', title: "Yoga Session", duration: "45 minutes", time: "Saturday", imageUri: require('../assets/Images/fit4.jpg') },
+    { id: '5', title: "Back and Biceps", duration: "75 minutes", time: "Monday", imageUri: require('../assets/Images/fit5.jpg') },
 ];
 
 const planData = [
-  { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
-  { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
+    { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
+    { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
 ];
 
 export default function FitnessScreen() {
-  const [visibleWorkouts, setVisibleWorkouts] = useState(3);
-  const [randomQuote, setRandomQuote] = useState(''); // ISAAC State to store random quote
+    const [visibleWorkouts, setVisibleWorkouts] = useState(3);
+    const [randomQuote, setRandomQuote] = useState(''); // ISAAC State to store random quote
   const fadeAnimDay = useRef(new Animated.Value(0)).current;
   const fadeAnimQuote = useRef(new Animated.Value(0)).current;
 
@@ -101,6 +103,35 @@ export default function FitnessScreen() {
     );
   };
 
+    return (
+        <FlatList
+            data={[]}
+            keyExtractor={(item, index) => index.toString()}
+            ListHeaderComponent={
+                <View style={styles.headerContainer}>
+                    <Image
+                        source={require('../assets/Images/landing.jpg')}
+                        style={styles.headerImage}
+                    />
+                    {/* ISAAC - Added the overlay container to ensure the quote is visible on the image */}
+                    <View style={styles.overlayContainer}>
+                        <Text style={styles.quoteText}>{randomQuote}</Text>
+                    </View>
+                    <FlatList
+                        data={workoutData.slice(0, visibleWorkouts)}
+                        renderItem={renderWorkoutItem}
+                        keyExtractor={item => item.id}
+                        contentContainerStyle={{ paddingBottom: 20 }}
+                    />
+                    {visibleWorkouts < workoutData.length ? (
+                        <TouchableOpacity style={styles.loadMoreButton} onPress={() => setVisibleWorkouts(workoutData.length)}>
+                            <Text style={styles.loadMoreText}>Load More</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity style={styles.loadMoreButton} onPress={() => setVisibleWorkouts(3)}>
+                            <Text style={styles.loadMoreText}>Show Less</Text>
+                        </TouchableOpacity>
+                    )}
   return (
     <FlatList
       data={[]} 
@@ -133,6 +164,35 @@ export default function FitnessScreen() {
             </TouchableOpacity>
           )}
 
+                    <View style={styles.currentPlanHeader}>
+                        <Text style={styles.title}>Current Plan</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('AllPlans')}>
+                            <Text style={styles.viewAllText}>View All Plans</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            }
+            ListFooterComponent={
+                <View style={styles.footerContainer}>
+                    <FlatList
+                        horizontal
+                        data={planData}
+                        renderItem={renderPlanItem}
+                        keyExtractor={item => item.id}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                    <View style={styles.modifyContainer}>
+                        <Text style={styles.modifyText}>Modify Workout Plan</Text>
+                        <Text style={styles.descriptionText}>You have a new schedule change? Need to update your fitness goal? Time to update your workout plan.</Text>
+                        <TouchableOpacity style={styles.updateButton}>
+                            <Text style={styles.updateButtonText}>Update Preferences</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            }
+            style={styles.container}
+        />
+    );
           <View style={styles.currentPlanHeader}>
             <Text style={styles.pTitle}>Current Plan</Text>
             <TouchableOpacity onPress={() => navigation.navigate('AllPlans')}>

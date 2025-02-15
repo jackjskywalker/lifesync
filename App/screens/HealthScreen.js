@@ -1,284 +1,193 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+//Chandler: New edited health screen
+import React from 'react';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
 
-const categories = ['Muscle Gain', 'Fat Loss', 'Vegan', 'Carnivore'];
-
-//Chandler
 const recipes = {
     'Muscle Gain': [
-        { title: 'Zucchini Noodles with Pesto', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/zucchini noodles with pesto.jpg') },
-        { title: 'Overnight Oats', time: '5 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/Overnight Oats.png') },
-        { title: 'Grilled Chicken Breast', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/grilled chicken breast.jpg') },
-        { title: 'Protein Pancakes', time: '15 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Protein-pancakes-b64bd40.jpg') },
-        { title: 'Turkey and Sweet Potato Hash', time: '35 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/TurkeyHash.jpg') },
-        { title: 'Cottage Cheese with Pineapple and Walnuts', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cottage cheese.jpg') },
-        { title: 'Stuffed Bell Peppers', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/stuffed peppers.jpg') },
-        { title: 'Protein Smoothie Bowl', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/smoothie bowl.jpg') }
+        { id: '1', title: 'Zucchini Noodles with Pesto', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/zucchini noodles with pesto.jpg') },
+        { id: '2', title: 'Overnight Oats', time: '5 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/Overnight Oats.png') },
+        { id: '3', title: 'Grilled Chicken Breast', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/grilled chicken breast.jpg') },
+        { id: '4', title: 'Protein Pancakes', time: '15 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Protein-pancakes-b64bd40.jpg') },
+        { id: '5', title: 'Turkey and Sweet Potato Hash', time: '35 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/TurkeyHash.jpg') },
+        { id: '6', title: 'Cottage Cheese with Pineapple and Walnuts', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cottage cheese.jpg') },
+        { id: '7', title: 'Stuffed Bell Peppers', time: '45 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/stuffed peppers.jpg') },
+        { id: '8', title: 'Protein Smoothie Bowl', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/smoothie bowl.jpg') }
     ],
     'Fat Loss': [
-        { title: 'Avocado Salad', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/avocadosalad.jpg') },
-        { title: 'Grilled Salmon with Asparagus', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/salmon.jpg') },
-        { title: 'Kale & Quinoa Salad', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/kale.jpg') },
-        { title: 'Cauliflower Rice Stir-Fry', time: '15 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/friedrice.jpg') },
-        { title: 'Shrimp Lettuce Wraps', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/Shrimp-Lettuce-Wraps.jpg') },
-        { title: 'Cucumber Noodle Salad', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cucumber-noodle--salad.jpg') },
-        { title: 'Chicken and Vegetable Soup', time: '45 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Chicken-Vegetable-Soup.jpg') },
-        { title: 'Turkey Chili', time: '50 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Easy-Turkey-Chili.webp') }
+        { id: '9', title: 'Avocado Salad', time: '10 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/avocadosalad.jpg') },
+        { id: '10', title: 'Grilled Salmon with Asparagus', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/salmon.jpg') },
+        { id: '11', title: 'Kale & Quinoa Salad', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/kale.jpg') },
+        { id: '12', title: 'Cauliflower Rice Stir-Fry', time: '15 Minutes', difficulty: 'Medium', price: '$', imageUri: require('../assets/Images/friedrice.jpg') },
+        { id: '13', title: 'Shrimp Lettuce Wraps', time: '20 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/Shrimp-Lettuce-Wraps.jpg') },
+        { id: '14', title: 'Cucumber Noodle Salad', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/cucumber-noodle--salad.jpg') },
+        { id: '15', title: 'Chicken and Vegetable Soup', time: '45 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Chicken-Vegetable-Soup.jpg') },
+        { id: '16', title: 'Turkey Chili', time: '50 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/Easy-Turkey-Chili.webp') }
     ],
     'Vegan': [
-        { title: 'Chickpea Curry', time: '40 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/chickpea.jpg') },
-        { title: 'Vegan Tacos', time: '20 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/vegantacos.jpg') },
-        { title: 'Lentil Soup', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/lentilsoup.jpg') },
-        { title: 'Tofu Stir Fry', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/tofu stirfry.jpg') },
-        { title: 'Stuffed Sweet Potatoes', time: '40 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/stuffed sweet potatoes.jpg') },
-        { title: 'Vegan Buddha Bowl', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/buddha bowl.jpg') },
-        { title: 'Peanut Butter Energy Bites', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/energy bites.jpg') },
-        { title: 'Vegan Mushroom Stroganoff', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/mushroom stroganoff.jpg') }
-
+        { id: '17', title: 'Chickpea Curry', time: '40 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/chickpea.jpg') },
+        { id: '18', title: 'Vegan Tacos', time: '20 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/vegantacos.jpg') },
+        { id: '19', title: 'Lentil Soup', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/lentilsoup.jpg') },
+        { id: '20', title: 'Tofu Stir Fry', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/tofu stirfry.jpg') },
+        { id: '21', title: 'Stuffed Sweet Potatoes', time: '40 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/stuffed sweet potatoes.jpg') },
+        { id: '22', title: 'Vegan Buddha Bowl', time: '30 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/buddha bowl.jpg') },
+        { id: '23', title: 'Peanut Butter Energy Bites', time: '15 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/energy bites.jpg') },
+        { id: '24', title: 'Vegan Mushroom Stroganoff', time: '25 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/mushroom stroganoff.jpg') }
     ],
     'Carnivore': [
-        { title: 'Bacon-wrapped Steak', time: '30 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/bacon steak.webp') },
-        { title: 'Beef Liver Stir Fry', time: '20 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/beef stirfry.jpg') },
-        { title: 'Roast Pork Belly', time: '60 Minutes', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/pork belly.avif') },
-        { title: 'Grilled Lamb Chops', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/lamb chops.jpg') },
-        { title: 'Slow-Cooked Short Ribs', time: '7 Hours', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/slow cooked ribs.jpg') },
-        { title: 'Duck Breast with Orange Glaze', time: '60 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/duck breast orange.jpg') },
-        { title: 'Chicken Thighs in Creamy Garlic Sauce', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/chicken thighs in garlic sauce.jpg') },
-        { title: 'Smoked Sausage and Cabbage Stir Fry', time: '25 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/sausage and cabbage stir fry.jpg') }
+        { id: '25', title: 'Bacon-wrapped Steak', time: '30 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/bacon steak.webp') },
+        { id: '26', title: 'Beef Liver Stir Fry', time: '20 Minutes', difficulty: 'Medium', price: '$$', imageUri: require('../assets/Images/beef stirfry.jpg') },
+        { id: '27', title: 'Roast Pork Belly', time: '60 Minutes', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/pork belly.avif') },
+        { id: '28', title: 'Grilled Lamb Chops', time: '25 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/lamb chops.jpg') },
+        { id: '29', title: 'Slow-Cooked Short Ribs', time: '7 Hours', difficulty: 'Hard', price: '$$$', imageUri: require('../assets/Images/slow cooked ribs.jpg') },
+        { id: '30', title: 'Duck Breast with Orange Glaze', time: '60 Minutes', difficulty: 'Medium', price: '$$$', imageUri: require('../assets/Images/duck breast orange.jpg') },
+        { id: '31', title: 'Chicken Thighs in Creamy Garlic Sauce', time: '35 Minutes', difficulty: 'Easy', price: '$$', imageUri: require('../assets/Images/chicken thighs in garlic sauce.jpg') },
+        { id: '32', title: 'Smoked Sausage and Cabbage Stir Fry', time: '25 Minutes', difficulty: 'Easy', price: '$', imageUri: require('../assets/Images/sausage and cabbage stir fry.jpg') }
     ]
 };
 
-const allRecipes = Object.values(recipes).flat();
-
-const HealthScreen = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Muscle Gain');
-  const [showAll, setShowAll] = useState(false);
-
-  const renderRecipeItem = ({ item }) => (
-    <View style={styles.recipeCard}>
-      <Image source={item.imageUri} style={styles.recipeImage} />
-      <View style={styles.priceTag}>
-        <Text style={styles.priceText}>{item.price}</Text>
-      </View>
-      <Text style={styles.recipeTitle}>{item.title}</Text>
-      <Text style={styles.recipeDetails}>{`${item.time}, ${item.difficulty}`}</Text> 
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}>Add to Recipe</Text>
-      </TouchableOpacity>
-    </View>
-  );
-  
-
-  const renderYourRecipes = ({ item }) => (
-    <TouchableOpacity style={styles.workoutContainer}>
-      <Image source={item.imageUri} style={styles.workoutImage} />
-      <View style={styles.workoutInfo}>
-        <Text style={styles.workoutTitle}>{item.title}</Text>
-        <Text style={styles.workoutDetails}>{`${item.time}, ${item.difficulty}`}</Text>
-      </View>
-      <MaterialIcons name="chevron-right" size={30} color="#000" />
-    </TouchableOpacity>
-  );
-
-  return (
-    <FlatList
-      data={[]}
-      keyExtractor={(item, index) => index.toString()}
-      ListHeaderComponent={
-        <View style={styles.container}>
-          {/* Category Selector */}
-          <View style={styles.topBar}>
-            {categories.map((category) => (
-              <TouchableOpacity
-                key={category}
-                style={[
-                  styles.categoryButton,
-                  selectedCategory === category && styles.categoryButtonSelected
-                ]}
-                onPress={() => setSelectedCategory(category)}
-              >
-                <Text
-                  style={[
-                    styles.categoryButtonText,
-                    selectedCategory === category && styles.categoryButtonTextSelected
-                  ]}
-                >
-                  {category}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          {/* Recommended Recipes (Horizontal List) */}
-          <Text style={styles.sectionTitle}>Recommended</Text>
-          <FlatList
-            data={recipes[selectedCategory]}
-            renderItem={renderRecipeItem}
-            keyExtractor={(item, index) => index.toString()}
-            horizontal
-            contentContainerStyle={styles.recipeContainer}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-      }
-      ListFooterComponent={
-        <View style={styles.container}>
-          {/* Your Recipes */}
-          <Text style={styles.sectionTitle}>Your Recipes</Text>
-          <FlatList
-            data={showAll ? allRecipes.slice(0, 5) : allRecipes.slice(0, 3)}
-            renderItem={renderYourRecipes}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={styles.recipeContainer}
-          />
-
-          {/* Load More / Show Less Button */}
-          {allRecipes.length > 3 && (
-            <TouchableOpacity
-              style={styles.updatePreferencesButton}
-              onPress={() => setShowAll((prev) => !prev)}
-            >
-              <Text style={styles.updatePreferencesText}>
-                {showAll ? 'Show Less' : 'Load More'}
-              </Text>
-            </TouchableOpacity>
-          )}
-
-          {/* All Plans (Horizontal List) */}
-          <Text style={styles.sectionTitle}>All Plans</Text>
-          <FlatList
-            data={allRecipes}
-            renderItem={renderRecipeItem}
-            keyExtractor={(item, index) => index.toString()}
-            horizontal
-            contentContainerStyle={styles.recipeContainer}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-      }
-    />
-  );
+const getDifficultyColor = (difficulty) => {
+    switch (difficulty) {
+        case 'Easy':
+            return '#4CAF50'; // Green
+        case 'Medium':
+            return '#FFC107'; // Yellow
+        case 'Hard':
+            return '#F44336'; // Red
+        default:
+            return '#000'; // Black
+    }
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 16,
-  },
-  categoryButton: {
-    padding: 8,
-    borderRadius: 4,
-  },
-  categoryButtonSelected: {
-    backgroundColor: '#4285F4',
-  },
-  categoryButtonText: {
-    color: '#555',
-  },
-  categoryButtonTextSelected: {
-    color: 'white',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    marginTop: 16,
-  },
-  recipeContainer: {
-    marginBottom: 16,
-    paddingBottom: 20,
-  },
-  recipeCard: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    padding: 16,
-    marginRight: 12,
-    alignItems: 'center',
-    width: 200,
-  },
-  priceTag: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-  },
-  priceText: {
-    color: '#555',
-    fontWeight: 'bold',
-  },
-  recipeImage: {
-    width: '100%',
-    height: 120,
-    borderRadius: 8,
-  },
-  recipeTitle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    flex: 1,
-    marginTop: 10,
-  },
-  recipeDetails: {
-    fontSize: 14,
-    color: '#555',
-  },
-  addButton: {
-    backgroundColor: '#4285F4',
-    padding: 8,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 14,
-  },
-  workoutContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    padding: 20,
-    margin: 10,
-    borderRadius: 8,
-    width: '100%',
-  },
-  workoutImage: {
-    width: 60,
-    height: 60,
-    marginRight: 10,
-    borderRadius: 8,
-  },
-  workoutInfo: {
-    flex: 1,
-  },
-  workoutTitle: {
-    fontSize: 18,
-  },
-  workoutDetails: {
-    color: '#555',
-    fontSize: 14,
-  },
-  updatePreferencesButton: {
-    alignSelf: 'center',
-    backgroundColor: '#4285F4',
-    padding: 15,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 10,
-  },
-  updatePreferencesText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
+export default function HealthScreen({ navigation }) {
+    const renderRecipeItem = ({ item }) => (
+        <TouchableOpacity
+            style={styles.recipeContainer}
+            onPress={() => navigation.navigate('RecipeDetail', { recipeId: item.id })}
+        >
+            <Image source={item.imageUri} style={styles.recipeImage} />
+            <Text style={styles.recipeTitle}>{item.title}</Text>
+            <View style={styles.infoContainer}>
+                <View style={styles.timerContainer}>
+                    <Image source={require('../assets/Images/timer.jpg')} style={styles.timerIcon} />
+                    <Text style={styles.timeText}>{item.time}</Text>
+                </View>
+                <View style={styles.priceAndDifficultyContainer}>
+                    <Text style={[styles.priceText, { color: '#4CAF50' }]}>{item.price}</Text>
+                    <View style={[styles.difficultyBox, { borderColor: getDifficultyColor(item.difficulty) }]}>
+                        <Text style={[styles.difficultyText, { color: getDifficultyColor(item.difficulty) }]}>*</Text>
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
 
-export default HealthScreen;
+    const renderCategory = ({ item }) => (
+        <View style={styles.categoryContainer}>
+            <Text style={styles.sectionTitle}>{item}</Text>
+            <FlatList
+                data={recipes[item]}
+                renderItem={renderRecipeItem}
+                keyExtractor={recipe => recipe.id}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+            />
+        </View>
+    );
+
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={Object.keys(recipes)}
+                renderItem={renderCategory}
+                keyExtractor={category => category}
+            />
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    categoryContainer: {
+        marginBottom: 20,
+    },
+    sectionTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    recipeContainer: {
+        alignItems: 'flex-start',
+        marginRight: 10,
+        backgroundColor: '#f0f0f0',
+        padding: 10,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 5 },
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    recipeImage: {
+        width: 120,
+        height: 120,
+        borderRadius: 8,
+        marginBottom: 5,
+    },
+    recipeTitle: {
+        fontSize: 16,
+        textAlign: 'left',
+        fontWeight: 'bold',
+        width: 120,
+        marginBottom: 5,
+    },
+    infoContainer: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        width: 120,
+    },
+    timerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+    timerIcon: {
+        width: 16,
+        height: 16,
+        marginRight: 5,
+    },
+    timeText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: '#4285F4',
+        padding: 5,
+        borderRadius: 10,
+        overflow: 'hidden',
+    },
+    priceAndDifficultyContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    priceText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    difficultyBox: {
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        alignSelf: 'center',
+        marginTop: 5,
+    },
+    difficultyText: {
+        fontWeight: 'bold',
+    },
+});
