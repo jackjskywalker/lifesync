@@ -49,7 +49,6 @@ const recipes = {
     ]
 };
 
-
 const allRecipes = Object.values(recipes).flat();
 
 const HealthScreen = () => {
