@@ -132,6 +132,12 @@ const styles = StyleSheet.create({
     position: 'fixed',
     top: 30, // Moves it up dynamically
   },
+  logo: {
+    alignSelf: 'center',
+    width: 230,
+    height: 230,
+    marginBottom: 10,
+  },
   title: {
     fontSize: 45,
     color: '#000000',

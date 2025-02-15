@@ -22,6 +22,12 @@ const workoutData = [
     { id: '5', title: "Back and Biceps", duration: "75 minutes", time: "Monday", imageUri: require('../assets/Images/fit5.jpg') },
 ];
 
+const todaysWorkout = [
+  { id: '1', title: "Full Workout", duration: '90 minutes', time: "Today", imageUri: require('../assets/Images/fit5.jpg') }
+];
+
+
+
 const planData = [
     { id: '1', title: "Cardio Training", duration: "55 minutes", description: "10 Mile Run", imageUri: require('../assets/Images/fit5.jpg') },
     { id: '2', title: "Upper Body", duration: "45 minutes", description: "Target Chest", imageUri: require('../assets/Images/fit3.jpg') },
@@ -170,6 +176,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fc', 
+    backgroundColor: '#f8f9fc', 
   },
   headerContainer: {
     backgroundColor: '#f8f9fc',
@@ -254,6 +261,38 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 14,
   },
+  firstTitle: {
+    marginTop: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  todayContainer: {
+    alignItems: 'center',
+    padding: 20,
+    margin: 10,
+    backgroundColor: '#0690ffff',
+    borderRadius: 10,
+  },
+  todayInfo: {
+    flex: 1,
+  },
+  todayImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+  },
+  todayTitle: {
+    fontSize: 18,
+    color: '#f8f9fc',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  todayDetails: {
+    color: '#f8f9fc',
+    fontSize: 14,
+    textAlign: 'center',
+  },
   iconStyle: {
     marginLeft: 10,
   },
@@ -311,10 +350,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     marginTop: 10,
+    color: '#f8f9fc',
   },
   planDescription: {
     fontSize: 14,
-    color: '#555',
+    color: '#f8f9fc',
     textAlign: 'center',
     marginVertical: 5,
   },
@@ -379,6 +419,41 @@ const styles = StyleSheet.create({
     color: '#0690FF',
     fontSize: 16,
   },
+  calendarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 15,
+    borderRadius: 40,
+    padding: 5,
+  },
+  dayBox: {
+    width: 40,
+    height: 60,
+    borderRadius: 5,
+    alignItems: 'center',
+    backgroundColor: '#2585F830',
+  },
+  currentDayBox: {
+    backgroundColor: '#2585F8', // Highlight for today
+  },
+  dayText: {
+    fontSize: 16,
+    color: '#2C2D2F',
+    marginTop: 6,
+  },
+  dateText: {
+    color: '#2C2D2F',
+    fontSize: 20,
+
+  },
+  currentDateText: {
+    color: '#e6f2ff',
+    fontWeight: 'bold',
+  },
+  currentDayText: {
+    color: '#e6f2ff',
+    fontWeight: 'bold',
+  },  
 
   calendarContainer: {
     flexDirection: 'row',
