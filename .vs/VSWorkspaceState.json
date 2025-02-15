@@ -4,8 +4,10 @@
     "\\.idea",
     "\\App",
     "\\App\\.expo",
-    "\\App\\backend"
+    "\\App\\assets",
+    "\\App\\backend",
+    "\\App\\screens"
   ],
-  "SelectedNode": "\\App\\backend\\index.js",
+  "SelectedNode": "\\App\\assets\\Images",
   "PreviewInSolutionExplorer": false
 }
