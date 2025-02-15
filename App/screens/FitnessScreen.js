@@ -28,8 +28,8 @@ const planData = [
 ];
 
 export default function FitnessScreen() {
-    const [visibleWorkouts, setVisibleWorkouts] = useState(3);
-    const [randomQuote, setRandomQuote] = useState(''); // ISAAC State to store random quote
+  const [visibleWorkouts, setVisibleWorkouts] = useState(3);
+  const [randomQuote, setRandomQuote] = useState(''); // ISAAC State to store random quote
   const fadeAnimDay = useRef(new Animated.Value(0)).current;
   const fadeAnimQuote = useRef(new Animated.Value(0)).current;
 
@@ -103,35 +103,6 @@ export default function FitnessScreen() {
     );
   };
 
-    return (
-        <FlatList
-            data={[]}
-            keyExtractor={(item, index) => index.toString()}
-            ListHeaderComponent={
-                <View style={styles.headerContainer}>
-                    <Image
-                        source={require('../assets/Images/landing.jpg')}
-                        style={styles.headerImage}
-                    />
-                    {/* ISAAC - Added the overlay container to ensure the quote is visible on the image */}
-                    <View style={styles.overlayContainer}>
-                        <Text style={styles.quoteText}>{randomQuote}</Text>
-                    </View>
-                    <FlatList
-                        data={workoutData.slice(0, visibleWorkouts)}
-                        renderItem={renderWorkoutItem}
-                        keyExtractor={item => item.id}
-                        contentContainerStyle={{ paddingBottom: 20 }}
-                    />
-                    {visibleWorkouts < workoutData.length ? (
-                        <TouchableOpacity style={styles.loadMoreButton} onPress={() => setVisibleWorkouts(workoutData.length)}>
-                            <Text style={styles.loadMoreText}>Load More</Text>
-                        </TouchableOpacity>
-                    ) : (
-                        <TouchableOpacity style={styles.loadMoreButton} onPress={() => setVisibleWorkouts(3)}>
-                            <Text style={styles.loadMoreText}>Show Less</Text>
-                        </TouchableOpacity>
-                    )}
   return (
     <FlatList
       data={[]} 
@@ -172,35 +143,6 @@ export default function FitnessScreen() {
                     </View>
                 </View>
             }
-            ListFooterComponent={
-                <View style={styles.footerContainer}>
-                    <FlatList
-                        horizontal
-                        data={planData}
-                        renderItem={renderPlanItem}
-                        keyExtractor={item => item.id}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                    <View style={styles.modifyContainer}>
-                        <Text style={styles.modifyText}>Modify Workout Plan</Text>
-                        <Text style={styles.descriptionText}>You have a new schedule change? Need to update your fitness goal? Time to update your workout plan.</Text>
-                        <TouchableOpacity style={styles.updateButton}>
-                            <Text style={styles.updateButtonText}>Update Preferences</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            }
-            style={styles.container}
-        />
-    );
-          <View style={styles.currentPlanHeader}>
-            <Text style={styles.pTitle}>Current Plan</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('AllPlans')}>
-              <Text style={styles.viewAllText}>View All Plans</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      }
       ListFooterComponent={
         <View style={styles.footerContainer}>
           <FlatList
