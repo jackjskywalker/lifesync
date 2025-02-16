@@ -21,7 +21,7 @@ export default function HealthScreen({ navigation }) {
 
   const renderHealthItem = ({ item }) => (
     <View style={styles.healthItemContainer}>
-      <MaterialIcons name={item.icon} size={40} color="#4285F4" />
+      <MaterialIcons name={item.icon} size={40} color="#0690FF" />
       <View style={styles.healthItemText}>
         <Text style={styles.healthItemTitle}>{item.title}</Text>
         <Text style={styles.healthItemValue}>{item.value}</Text>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   toggleGoalsButton: {
     padding: 10,
     marginTop: 15,
-    backgroundColor: '#4285F4',
+    backgroundColor: '#0690FF',
     borderRadius: 20,
     alignItems: 'center',
   },
@@ -152,6 +152,6 @@ const styles = StyleSheet.create({
   },
   goalProgressFill: {
     height: '100%',
-    backgroundColor: '#4285F4',
+    backgroundColor: '#0690FF',
   },
 });
